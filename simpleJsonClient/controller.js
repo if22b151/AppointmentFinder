@@ -20,7 +20,7 @@ function loaddata() {
 
             $.each (response, function (i, item) {
 
-                $('#list').append('<li>' + item.title + '</li>');
+                $('#list').append('<li>' + item["title"] + '</li>');
             });
         }
 
