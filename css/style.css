@@ -21,7 +21,7 @@
     margin-bottom: 5px;
 }
 
-.appointment-description {
+.appointment-location {
     margin-top: 0;
     margin-bottom: 10px;
 }
@@ -29,4 +29,41 @@
 .appointment-date {
     font-style: italic;
     font-size: 14px;
+}
+
+.past-appointment {
+    background-color: #f0f0f0;
+    color: #999;
+}
+
+.past-appointment:hover {
+    background-color: #f0f0f0;
+    color: #999;
+}
+
+
+/* cursor over clickable elements */
+.clickable {
+    cursor: pointer;
+}
+
+
+
+/* Submit button style */
+.form-submit-button {
+    background: #B9DFFF;
+    color: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
+}
+
+.form-submit-button:hover {
+    background: #016ABC;
+    color: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
 }

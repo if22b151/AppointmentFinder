@@ -29,7 +29,8 @@ class DataHandler
     private static function getDemoData()
     {
         $demodata = [
-               new Appointment(1,"test", "Party", "PaulsPlace", "2023-6-12"),
+            new Appointment(1,"test", "Party", "PaulsPlace", "2023-01-12"),
+            new Appointment(1,"test", "Party", "PaulsPlace", "2023-05-12"),
 
         ];
         return $demodata;

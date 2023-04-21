@@ -23,14 +23,19 @@ function loaddata() {
 
 
                 const transformedDate = formatDate(item.deadline);
+                var appointmentClass = "appointment-link";
+                if(new Date(item.deadline) < new Date()) {
+                    appointmentClass += " past-appointment";
+                }
+
                 // Create the new <li> element
                 var newAppointment = $("<li>").html(`
-                  <a href="#" class="appointment-link">
+                  <a href="#" class="${appointmentClass}">
                     <h3 class="appointment-title">${item.title}</h3>
-                    <p class="appointment-description">Description of Appointment 2</p>
+                    <p class="appointment-location">${item.location}</p>
                     <span class="appointment-date"> Deadline: ${transformedDate}</span>
                   </a>
-`);
+                `);
 
                 $("#list").append(newAppointment);
 
