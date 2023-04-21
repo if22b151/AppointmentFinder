@@ -1,11 +1,7 @@
 //Starting point for JQuery init
 
-$(document).ready(function () {
 
-    loaddata();
-
-
-});
+loaddata();
 
 function loaddata() {
 
@@ -14,36 +10,39 @@ function loaddata() {
         type: "GET",
         url: "../serviceHandler.php",
         cache: false,
-        data: {method: "getAppointments", param: "all"},
+        data: {method: "getAppointments"},
         dataType: "json",
         success: function (response) {
 
 
             $.each (response, function (i, item) {
 
-
+                var pastAppointment = false;
                 const transformedDate = formatDate(item.deadline);
                 var appointmentClass = "appointment-link";
                 if(new Date(item.deadline) < new Date()) {
                     appointmentClass += " past-appointment";
+                    pastAppointment = true;
                 }
 
                 // Create the new <li> element
                 var newAppointment = $("<li>").html(`
-                  <a href="#" class="${appointmentClass}">
+                  <a href="appointment_details.html?id=${item.id}&pastAppointment=${pastAppointment}" class="${appointmentClass}">
                     <h3 class="appointment-title">${item.title}</h3>
                     <p class="appointment-location">${item.location}</p>
                     <span class="appointment-date"> Deadline: ${transformedDate}</span>
                   </a>
                 `);
-
                 $("#list").append(newAppointment);
 
             });
+        },
+        error: function (response) {
+            console.log(response);
         }
 
-    });
 
+    });
 
 }
 

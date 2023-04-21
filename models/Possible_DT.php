@@ -1,6 +1,6 @@
 <?php
 
-class possible_date_time
+class possible_DT
 {
 
     public $date;

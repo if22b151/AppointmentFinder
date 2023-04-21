@@ -1,14 +1,14 @@
 <?php
 class Appointment {
     public $id;
-    public $possibleDT;
+    public $possible_DT;
     public $title;
     public $location;
     public $deadline;
 
-    function __construct($id, $possibleDT, $title, $location, $deadline) {
+    function __construct($id, $possible_DT, $title, $location, $deadline) {
         $this->id = $id;
-        $this->possibleDT = $possibleDT;
+        $this->possible_DT = $possible_DT;
         $this->title = $title;
         $this->location = $location;
         $this->deadline = $deadline;

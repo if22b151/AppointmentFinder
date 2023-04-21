@@ -23,36 +23,17 @@
             <p><strong>Location:</strong> Conference Room B</p>
             <p><strong>Deadline:</strong> April 30, 2023</p>
         </div>
-        <div class="col-md-6">
+        <div id="form" class="col-md-6">
 
             <p><strong>Possible Dates:</strong></p>
-            <ul id="possibleDT" class="list-group">
-                <li class="list-group-item clickable d-flex justify-content-between">
-                    <span>April 25, 2023</span>
-                    <span>10:00 - 20:00</span>
-                </li>
-                <li class="list-group-item clickable d-flex justify-content-between">
-                    <span>April 26, 2023</span>
-                    <span>11:00 AM</span>
-                </li>
-                <li class="list-group-item clickable d-flex justify-content-between">
-                    <span>April 27, 2023</span>
-                    <span>2:00 PM</span>
-                </li>
-                <li class="list-group-item clickable d-flex justify-content-between">
-                    <span>April 28, 2023</span>
-                    <span>3:30 PM</span>
-                </li>
-                <li class="list-group-item clickable d-flex justify-content-between">
-                    <span>April 29, 2023</span>
-                    <span>4:00 PM</span>
-                </li>
-            </ul>
+            <ul id="possibleDT" class="list-group"></ul>
 
             <br>
-            <input id = "name" type="text " class="form-control" placeholder="Enter your Name">
-            <textarea id="comment" class="form-control" rows="4" placeholder="Write your comment here..."></textarea>
-            <button class="btn btn-primary mt-4">Add to Calendar</button>
+            <div id = "input">
+                <input id = "name" type="text " class="form-control" placeholder="Enter your Name">
+                <textarea id="comment" class="form-control" rows="4" placeholder="Write your comment here..."></textarea>
+                <button class="btn btn-primary mt-4">Add to Calendar</button>
+            </div>
 
         </div>
 

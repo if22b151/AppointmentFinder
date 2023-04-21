@@ -1,6 +1,6 @@
 <?php
 include("./models/appointment.php");
-include("./models/possible_date_time.php");
+include("./models/Possible_DT.php");
 class DataHandler
 {
 
@@ -25,14 +25,27 @@ class DataHandler
         return $result;
     }
 
+    public function getPossibleDT($id){
+        $result = array();
+        $appointments = self::getDemoData();
+        foreach ($appointments as $appointment) {
+            if ($appointment->id == $id) {
+                array_push($result, $appointment->possible_DT);
+            }
+        }
+
+        return $result;
+    }
+
 
     private static function getDemoData()
     {
         $demodata = [
-            new Appointment(1,"test", "Party", "PaulsPlace", "2023-01-12"),
-            new Appointment(1,"test", "Party", "PaulsPlace", "2023-05-12"),
+            new Appointment(1,new possible_DT("2023-02-01", "19:00", "20:00"), "Party", "PaulsPlace", "2023-01-12"),
+            new Appointment(2,new possible_DT("2023-06-01", "11:00", "13:00"), "Party", "PaulsPlace", "2023-05-12"),
 
         ];
         return $demodata;
     }
+
 }
