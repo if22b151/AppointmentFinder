@@ -16,13 +16,41 @@
 
 </head>
 <body>
-    <div id="container">
+    <header id="header">
+        <nav>
+            <a>Appointments</a>
+        </nav>
+    </header>
+    <div id="appointments">
 
         <ul id= "list" class="appointments-list"></ul>
 
+    </div>
+    <div id= "appointment_details" class="container mt-4" h>
+        <h1 class="mb-4">Appointment Details</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <p><span><strong>Title: </strong></span><span id = "title"></span></p>
+                <p><span><strong>Location: </strong></span><span id = "location"></span></p>
+                <p><span><strong>Deadline: </strong></span><span id = "deadline"></span></p>
+            </div>
+            <div id="form" class="col-md-6">
+
+                <p><strong>Possible Dates:</strong></p>
+                <ul id="possibleDT" class="list-group"></ul>
+                <p id= "past-appointment" class="text-danger">This appointment is in the past. You can not make any changes.</p>
+
+                <br>
+                <div id = "input">
+                    <input id = "name" type="text " class="form-control" placeholder="Enter your Name">
+                    <textarea id="comment" class="form-control" rows="4" placeholder="Write your comment here..."></textarea>
+                    <button class="btn btn-primary mt-4">Add to Calendar</button>
+                </div>
+
+            </div>
 
 
-
+        </div>
     </div>
 </body>
 </html>

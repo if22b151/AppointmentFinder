@@ -1,6 +1,4 @@
-
-
-
+var appointments;
 
 loaddata();
 
@@ -15,8 +13,7 @@ function loaddata() {
         $("#input").hide();
         $("#form").append('<span class="text-danger">This appointment is in the past. You can not make any changes.</span>');
     }
-
-    console.log("loaddata");
+    
     $.ajax({
         type: "GET",
         url: "../serviceHandler.php",

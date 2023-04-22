@@ -19,6 +19,9 @@ class SimpleLogic
             case "getPossibleDT":
                 $res = $this->dh->getPossibleDT($param);
                 break;
+            case "getAppointmentById":
+                $res = $this->dh->getAppointmentById($param);
+                break;
             default:
                 $res = null;
                 break;
