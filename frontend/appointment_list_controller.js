@@ -10,13 +10,14 @@ $("#header").on("click", function () {+
     loaddata("getAppointments", "all");
 });
 
-$("#appointment_details").toggle();
-loaddata("getAppointments", "all");
+$("#appointment_details").hide();
+loaddata("getAppointments");
 
 function loaddata(method, param) {
 
     console.log("loaddata");
     console.log(method);
+    console.log(param);
     $.ajax({
         type: "GET",
         url: "../serviceHandler.php",
@@ -25,6 +26,7 @@ function loaddata(method, param) {
         dataType: "json",
         success: function (response) {
             if (method === "getAppointments") {
+                console.log("test");
                 loadAppointments(response);
             }
             if (method === "getAppointmentById") {
@@ -37,6 +39,7 @@ function loaddata(method, param) {
             }
         },
         error: function (response) {
+            console.log("error");
             console.log(response);
         }
 
@@ -47,17 +50,19 @@ function loaddata(method, param) {
 
 function loadAppointments(appointments) {
 
+
     $.each (appointments, function (i, item) {
 
         console.log(item.deadline);
         const transformedDate = formatDate(item.deadline);
+
         var appointmentClass = "appointment-link";
         if(new Date(item.deadline) < new Date()) {
             appointmentClass += " past-appointment";
         }
 
         // Create the new <li> element
-        var newAppointment = $("<li>",{onclick: "loaddata('getAppointmentById', " + item.id + ")",
+        var newAppointment = $("<li>",{onclick: "loaddata('getAppointmentById', " + item.id + ")" ,
             class: "list-group-item"}).html(`
                   <a href="#" class="${appointmentClass}">
                     <h3 class="appointment-title">${item.title}</h3>
@@ -108,18 +113,18 @@ function loadPossibleDT(possibleDT) {
         }
         $("#possibleDT").append(listItem);
 
-        if ($("#past-appointment").is(":hidden")) {
-            $('.clickable').on('click', function() {
-                // Toggle the "bg-success" and "text-white" Bootstrap classes on the clicked list item
-                $(this).toggleClass('bg-success text-white');
-            });
-
-        }
-
     });
+
+    if ($("#past-appointment").is(":hidden")) {
+        $('.clickable').on('click', function() {
+            // Toggle the "bg-success" and "text-white" Bootstrap classes on the clicked list item
+            $(this).toggleClass('bg-success text-white');
+        });
+
+    }
 }
 
-
+//Example: 2020-12-31 --> December 31, 2020
 function formatDate(dateString) {
     // Create a new Date object from the input string
     const date = new Date(dateString);
