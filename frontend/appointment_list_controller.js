@@ -1,28 +1,26 @@
 //Starting point for JQuery init
-
-
 $("#header").on("click", function () {+
     $("#appointments").show();
     $("#appointment_details").hide();
     $("#list").empty();
     $("#possibleDT").empty();
 
-    loaddata("getAppointments", "all");
+    loaddata("GET", "getAppointments", "all");
 });
 
 $("#appointment_details").hide();
-loaddata("getAppointments");
+loaddata("GET", "getAppointments");
 
-function loaddata(method, param) {
+function loaddata(typemethod, method, param) {
 
     console.log("loaddata");
     console.log(method);
     console.log(param);
     $.ajax({
-        type: "GET",
+        type: typemethod,
         url: "../serviceHandler.php",
         cache: false,
-        data: {method: method, param: param },
+        data: {method: method, param: param},
         dataType: "json",
         success: function (response) {
             if (method === "getAppointments") {
@@ -48,6 +46,7 @@ function loaddata(method, param) {
 
 }
 
+
 function loadAppointments(appointments) {
 
 
@@ -62,7 +61,7 @@ function loadAppointments(appointments) {
         }
 
         // Create the new <li> element
-        var newAppointment = $("<li>",{onclick: "loaddata('getAppointmentById', " + item.id + ")" ,
+        var newAppointment = $("<li>",{onclick: "loaddata('GET', 'getAppointmentById', " + item.id + ")" ,
             class: "list-group-item"}).html(`
                   <a href="#" class="${appointmentClass}">
                     <h3 class="appointment-title">${item.title}</h3>
@@ -88,9 +87,16 @@ function loadAppointmentDetails(appointment) {
     }
     else {
         $("#input").show();
+        $("#add-to-cal").on("click", function () {
+            console.log("HAAAAAALLOO");
+            const inputobj = {};
+            inputobj.name = $("#name").val();
+            inputobj.comment = $("#comment").val();
+            loaddata("POST", "addToCalendar", inputobj);
+        });
         $("#past-appointment").hide();
     }
-    loaddata("getPossibleDT", appointment.id);
+    loaddata("GET", "getPossibleDT", appointment.id);
 }
 
 
@@ -146,6 +152,4 @@ function formatDate(dateString) {
     // Concatenate the transformed date components
     return `${monthName} ${day}, ${year}`;
 }
-
-
 

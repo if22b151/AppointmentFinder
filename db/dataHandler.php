@@ -14,6 +14,16 @@ class DataHandler
         return $db_obj;
     }
 
+    public function addtoCalendar($inputs)
+    {
+        $db_obj = self::dbAccess();
+        $sql = "INSERT INTO person(`name`, `comment`) VALUES (?,?)";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("ss", $inputs["name"], $inputs["comment"]);
+        $stmt->execute();
+        $stmt->close();
+    }
+
     public function getAppointments()
     {
 
