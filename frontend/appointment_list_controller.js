@@ -71,6 +71,7 @@ function loadAppointments(appointments) {
 }
 
 function loadAppointmentDetails(appointment) {
+
   $("#appointment_details").show();
   $("#appointments").hide();
   $("#title").html(appointment.title);
@@ -81,20 +82,16 @@ function loadAppointmentDetails(appointment) {
     $("#past-appointment").show();
   } else {
     $("#input").show();
-    $("#add-to-cal").on("click", function () {
-      const inputobj = {};
-      inputobj.name = $("#name").val();
-      inputobj.comment = $("#comment").val();
-      inputobj.appointment_id = appointment.id;
-      console.log(inputobj);
-      loaddata("POST", "addToCalendar", inputobj);
-    });
     $("#past-appointment").hide();
   }
   loaddata("GET", "getPossibleDT", appointment.id);
 }
 
 function loadPossibleDT(possibleDT) {
+  let appointment_id = null;
+  if (possibleDT.length != 0) {
+      appointment_id = possibleDT[0].fk_appointment_id;
+  }
   $.each(possibleDT, function (i, item) {
     const transformedDate = formatDate(item.date);
 
@@ -105,6 +102,9 @@ function loadPossibleDT(possibleDT) {
                 <span>${item.starting_time} - ${item.closing_time}</span>  
                
             `);
+    listItem.attr("pdt-id", item.pdt_id);
+
+
     if ($("#past-appointment").is(":visible")) {
       listItem.addClass("pastDT");
     }
@@ -117,6 +117,21 @@ function loadPossibleDT(possibleDT) {
       $(this).toggleClass("bg-success text-white");
     });
   }
+  $("#add-to-cal").on("click", function () {
+    const inputobj = {};
+    inputobj.name = $("#name").val();
+    inputobj.comment = $("#comment").val();
+    inputobj.appointment_id = appointment_id;
+    inputobj.possibleDT = [];
+    $(".bg-success").each(function () {
+        inputobj.possibleDT.push($(this).attr("pdt-id"));
+    });
+    console.log("inputobj");
+    console.log(inputobj.possibleDT.length);
+    console.log(inputobj.possibleDT[0]);
+    loaddata("POST", "addToCalendar", inputobj);
+  });
+
 }
 
 //Example: 2020-12-31 --> December 31, 2020

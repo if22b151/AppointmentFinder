@@ -21,7 +21,20 @@ class DataHandler
         $stmt = $db_obj->prepare($sql);
         $stmt->bind_param("ssi", $inputs["name"], $inputs["comment"], $inputs["appointment_id"]);
         $stmt->execute();
+        $last_id = $stmt->insert_id;
         $stmt->close();
+
+        if ($inputs["possibleDT"] != null && count($inputs["possibleDT"]) > 0) {
+
+            $db_obj = self::dbAccess();
+            for ($i = 0; $i < count($inputs["possibleDT"]); $i++) {
+                $sql = "INSERT INTO chosen_dt(`fk_pers_id`, `fk_pdt_id`) VALUES (?,?)";
+                $stmt = $db_obj->prepare($sql);
+                $stmt->bind_param("ii", $last_id, $inputs["possibleDT"][$i]);
+                $stmt->execute();
+                $stmt->close();
+            }
+        }
 
         return "success";
     }

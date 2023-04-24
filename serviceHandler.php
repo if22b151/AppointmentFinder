@@ -26,9 +26,6 @@ function response($method, $httpStatus, $data)
     header('Content-Type: application/json');
     switch ($method) {
         case "GET":
-            http_response_code($httpStatus);
-            echo (json_encode($data));
-            break;
         case "POST":
             http_response_code($httpStatus);
             echo (json_encode($data));
