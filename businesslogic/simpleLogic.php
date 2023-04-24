@@ -22,7 +22,7 @@ class SimpleLogic
             case "getAppointmentById":
                 $res = $this->dh->getAppointmentById($param);
                 break;
-            case "addtoCalendar":
+            case "addToCalendar":
                 $res = $this->dh->addtoCalendar($param);
                 break;
             default:
