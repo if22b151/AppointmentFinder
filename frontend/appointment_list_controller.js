@@ -1,14 +1,17 @@
 //Starting point for JQuery init
 $("#header").on("click", function () {
-  +$("#appointments").show();
+  $("#appointments").show();
   $("#appointment_details").hide();
+  $("#add_success").hide();
   $("#list").empty();
   $("#possibleDT").empty();
 
   loaddata("GET", "getAppointments", "all");
 });
 
+
 $("#appointment_details").hide();
+$("#add_success").hide();
 loaddata("GET", "getAppointments");
 
 function loaddata(typemethod, method, param) {
@@ -35,6 +38,7 @@ function loaddata(typemethod, method, param) {
         loadPossibleDT(response);
       }
       if (method === "addToCalendar") {
+        $("#add_success").show();
         console.log(response);
       }
     },
@@ -126,10 +130,8 @@ function loadPossibleDT(possibleDT) {
     $(".bg-success").each(function () {
         inputobj.possibleDT.push($(this).attr("pdt-id"));
     });
-    console.log("inputobj");
-    console.log(inputobj.possibleDT.length);
-    console.log(inputobj.possibleDT[0]);
     loaddata("POST", "addToCalendar", inputobj);
+
   });
 
 }
