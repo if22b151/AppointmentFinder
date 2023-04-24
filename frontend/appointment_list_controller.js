@@ -4,7 +4,6 @@ $("#header").on("click", function () {
   $("#appointment_details").hide();
   $("#list").empty();
   $("#possibleDT").empty();
-
   loaddata("GET", "getAppointments", "all");
 });
 
@@ -35,6 +34,8 @@ function loaddata(typemethod, method, param) {
         loadPossibleDT(response);
       }
       if (method === "addToCalendar") {
+        $("#message").fadeIn(600);
+        $("#message").fadeOut(2000);
         console.log(response);
       }
     },
@@ -71,6 +72,7 @@ function loadAppointments(appointments) {
 }
 
 function loadAppointmentDetails(appointment) {
+  $("#message").hide();
   $("#appointment_details").show();
   $("#appointments").hide();
   $("#title").html(appointment.title);
