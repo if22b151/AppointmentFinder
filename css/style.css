@@ -90,3 +90,57 @@ nav a:hover {
     text-decoration: underline;
     cursor: pointer;
 }
+
+header nav a:first-child {
+    margin-right: 20px;
+}
+
+/* Create Appointment */
+#create_appointment {
+    max-width: 500px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.possible-date {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.possible-date .form-control {
+    margin-right: 0.5rem;
+}
+
+#date-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#date-list li {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+#date-list li:hover {
+    background-color: #e6e6e6;
+}

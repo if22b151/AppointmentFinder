@@ -1,18 +1,39 @@
-//Starting point for JQuery init
-$("#header").on("click", function () {
-  $("#appointments").show();
-  $("#appointment_details").hide();
-  $("#add_success").hide();
+hideComponents("appointments");
+loaddata("GET", "getAppointments");
+
+$("#overview").on("click", function () {
+  hideComponents("appointments");
   $("#list").empty();
   $("#possibleDT").empty();
+  $("#date-list").empty();
 
   loaddata("GET", "getAppointments", "all");
 });
 
+$("#create").on("click", function () {
+    hideComponents("create_appointment");
+});
 
-$("#appointment_details").hide();
-$("#add_success").hide();
-loaddata("GET", "getAppointments");
+$("#add-date").on("click", function () {
+  const date = $("#newPossibleDate").val();
+  const time = $("#newPossibleTime").val();
+  const listItem = $("<li>", {
+    onclick: "$(this).remove()",
+    class: "list-group-item d-flex justify-content-between",
+  }).html(`
+                  <span>${date}</span>
+                  <span>${time}</span>
+           `);
+  $("#date-list").append(listItem);
+});
+
+function hideComponents(except) {
+  (except === "appointments") ? $("#appointments").show() : $("#appointments").hide();
+  (except === "appointment_details") ? $("#appointment_details").show() : $("#appointment_details").hide();
+  (except === "create_appointment") ? $("#create_appointment").show() : $("#create_appointment").hide();
+  $("#add_success").hide();
+}
+
 
 function loaddata(typemethod, method, param) {
   console.log("loaddata");
@@ -69,15 +90,14 @@ function loadAppointments(appointments) {
                     <p class="appointment-location">${item.location}</p>
                     <span class="appointment-date"> Deadline: ${transformedDate}</span>
                   </a>
-                `);
+           `);
     $("#list").append(newAppointment);
   });
 }
 
 function loadAppointmentDetails(appointment) {
 
-  $("#appointment_details").show();
-  $("#appointments").hide();
+  hideComponents("appointment_details");
   $("#title").html(appointment.title);
   $("#location").html(appointment.location);
   $("#deadline").html(formatDate(appointment.deadline));
@@ -131,7 +151,6 @@ function loadPossibleDT(possibleDT) {
         inputobj.possibleDT.push($(this).attr("pdt-id"));
     });
     loaddata("POST", "addToCalendar", inputobj);
-
   });
 
 }
