@@ -24,7 +24,9 @@ $("#add-date").on("click", function () {
                   <span>${date}</span>
                   <span>${time}</span>
            `);
-  $("#date-list").append(listItem);
+  if (date != "" && time != "") {
+    $("#date-list").append(listItem);
+  }
 });
 
 function hideComponents(except) {
