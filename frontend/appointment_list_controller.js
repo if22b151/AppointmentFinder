@@ -85,7 +85,6 @@ function loadAppointments(appointments) {
     // Create the new <li> element
     var newAppointment = $("<li>", {
       onclick: "loaddata('GET', 'getAppointmentById', " + item.id + ")",
-      class: "list-group-item",
     }).html(`
                   <a href="#" class="${appointmentClass}">
                     <h3 class="appointment-title">${item.title}</h3>
