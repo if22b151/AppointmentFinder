@@ -14,6 +14,19 @@ class DataHandler
         return $db_obj;
     }
 
+    public function addAppointment($inputs)
+    {
+        $db_object = self::dbAccess();
+        $sql = "INSERT INTO appointment(`title`, `deadline`, `location`) VALUES (?,?,?)";
+        $stmt = $db_object->prepare($sql);
+        $stmt->bind_param("sss", $inputs["title"], $inputs["deadline"], $inputs["location"]);
+        $stmt->execute();
+        $stmt->close();
+
+        //TODO: Insert possible date times
+
+    }
+
     public function addToCalendar($inputs)
     {
         $db_obj = self::dbAccess();
@@ -58,6 +71,9 @@ class DataHandler
                 'location' => $location
             );
         }
+
+        $stmt->close();
+
         if (empty($appointments)) {
             return null;
         }
@@ -84,6 +100,9 @@ class DataHandler
                 'fk_appointment_id' => $fk_appointment_id
             );
         }
+
+        $stmt->close();
+
         if (empty($possible_dt)) {
             return null;
         }
@@ -107,7 +126,10 @@ class DataHandler
             );
             return $appointment;
         }
+
         return null;
+
+        $stmt->close();
     }
 
 }

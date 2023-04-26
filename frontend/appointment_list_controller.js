@@ -156,6 +156,22 @@ function loadPossibleDT(possibleDT) {
 
 }
 
+$("#submit_appointment").on("click", function () {
+  const inputobj = {};
+  inputobj.title = $("#title").val();
+  inputobj.location = $("#location").val();
+  inputobj.deadline = $("#deadline").val();
+  inputobj.possibleDT = [];
+  $(".list-group-item").each(function () {
+    const date = $(this).find("span:first").html();
+    const time = $(this).find("span:last").html();
+    inputobj.possibleDT.push({ date: date, time: time });
+  });
+  loaddata("POST", "addAppointment", inputobj);
+  $("#add_success").show();
+
+});
+
 //Example: 2020-12-31 --> December 31, 2020
 function formatDate(dateString) {
   // Create a new Date object from the input string

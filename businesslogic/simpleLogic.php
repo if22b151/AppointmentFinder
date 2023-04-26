@@ -25,6 +25,9 @@ class SimpleLogic
             case "addToCalendar":
                 $res = $this->dh->addtoCalendar($param);
                 break;
+            case "addAppointment":
+                $res = $this->dh->addAppointment($param);
+                break;
             default:
                 $res = null;
                 break;
