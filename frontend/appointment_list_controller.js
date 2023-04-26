@@ -6,6 +6,7 @@ $("#overview").on("click", function () {
   $("#list").empty();
   $("#possibleDT").empty();
   $("#date-list").empty();
+  $("#create_success").hide();
 
   loaddata("GET", "getAppointments", "all");
 });
@@ -16,15 +17,16 @@ $("#create").on("click", function () {
 
 $("#add-date").on("click", function () {
   const date = $("#newPossibleDate").val();
-  const time = $("#newPossibleTime").val();
+  const starting_time = $("#newStarting_Time").val();
+  const closing_time = $("#newClosing_Time").val();
   const listItem = $("<li>", {
     onclick: "$(this).remove()",
     class: "list-group-item d-flex justify-content-between",
   }).html(`
-                  <span>${date}</span>
-                  <span>${time}</span>
+                  <span name="date">${date}</span>
+                  <span><span>${starting_time}</span> - <span>${closing_time}</span></span>
            `);
-  if (date != "" && time != "") {
+  if (date !== "" && starting_time !== "" && closing_time !== "") {
     $("#date-list").append(listItem);
   }
 });
@@ -34,6 +36,7 @@ function hideComponents(except) {
   (except === "appointment_details") ? $("#appointment_details").show() : $("#appointment_details").hide();
   (except === "create_appointment") ? $("#create_appointment").show() : $("#create_appointment").hide();
   $("#add_success").hide();
+  $("#create_success").hide();
 }
 
 
@@ -62,6 +65,10 @@ function loaddata(typemethod, method, param) {
       }
       if (method === "addToCalendar") {
         $("#add_success").show();
+        console.log(response);
+      }
+      if (method === "addAppointment") {
+        $("#create_success").show();
         console.log(response);
       }
     },
@@ -158,17 +165,21 @@ function loadPossibleDT(possibleDT) {
 
 $("#submit_appointment").on("click", function () {
   const inputobj = {};
-  inputobj.title = $("#title").val();
-  inputobj.location = $("#location").val();
-  inputobj.deadline = $("#deadline").val();
+  inputobj.title = $("#newTitle").val();
+  inputobj.location = $("#newLocation").val();
+  inputobj.deadline = $("#newDeadLine").val();
+  console.log(inputobj.deadline);
   inputobj.possibleDT = [];
   $(".list-group-item").each(function () {
-    const date = $(this).find("span:first").html();
-    const time = $(this).find("span:last").html();
-    inputobj.possibleDT.push({ date: date, time: time });
+    const newDate = $(this).find("span[name='date']").text();
+    const newStarting_time = $(this).find("span:last-child").find("span:first-child").text();
+    const newClosing_time = $(this).find("span:last-child").find("span:last-child").text();
+    console.log("newDate: " + newDate);
+    console.log(newStarting_time);
+    console.log(newClosing_time);
+    inputobj.possibleDT.push({ date: newDate, starting_time: newStarting_time, closing_time: newClosing_time });
   });
   loaddata("POST", "addAppointment", inputobj);
-  $("#add_success").show();
 
 });
 

@@ -21,9 +21,20 @@ class DataHandler
         $stmt = $db_object->prepare($sql);
         $stmt->bind_param("sss", $inputs["title"], $inputs["deadline"], $inputs["location"]);
         $stmt->execute();
+        $last_id = $stmt->insert_id;
         $stmt->close();
 
-        //TODO: Insert possible date times
+        if ($inputs["possibleDT"] != null && count($inputs["possibleDT"]) > 0) {
+            $db_object = self::dbAccess();
+            for ($i = 0; $i < count($inputs["possibleDT"]); $i++) {
+                $sql = "INSERT INTO possible_date_time(`date`, `starting_time`, `closing_time`, `fk_appointment_id`) VALUES (?,?,?,?)";
+                $stmt = $db_object->prepare($sql);
+                $stmt->bind_param("sssi", $inputs["possibleDT"][$i]["date"], $inputs["possibleDT"][$i]["starting_time"], $inputs["possibleDT"][$i]["closing_time"], $last_id);
+                $stmt->execute();
+                $stmt->close();
+            }
+        }
+        return "success";
 
     }
 
