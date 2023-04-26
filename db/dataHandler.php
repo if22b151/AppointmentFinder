@@ -110,16 +110,4 @@ class DataHandler
         return null;
     }
 
-
-//    private static function getDemoData()
-//    {
-//
-//        $demodata = [
-//            new Appointment(1,[new possible_DT("2023-02-01", "19:00", "20:00"),new possible_DT("2023-02-01", "19:00", "20:00")], "Party", "PaulsPlace", "2023-01-12"),
-//            new Appointment(2,[new possible_DT("2023-06-01", "11:00", "13:00")], "Funeral", "Cemetery", "2023-05-12"),
-//
-//        ];
-//        return $demodata;
-//    }
-
 }
