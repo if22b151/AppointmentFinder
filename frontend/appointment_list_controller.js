@@ -71,6 +71,14 @@ function loaddata(typemethod, method, param) {
         $("#create_success").show();
         console.log(response);
       }
+      if (method === "deleteAppointment") {
+        $("#appointments").show();
+        $("#list").empty();
+        $("#possibleDT").empty();
+        $("#date-list").empty();
+        $("#create_success").hide();
+        loaddata("GET", "getAppointments", "all");
+      }
     },
     error: function (response, status, error) {
       console.log("error");
@@ -90,18 +98,27 @@ function loadAppointments(appointments) {
     }
 
     // Create the new <li> element
-    var newAppointment = $("<li>", {
-      onclick: "loaddata('GET', 'getAppointmentById', " + item.id + ")",
-    }).html(`
-                  <a href="#" class="${appointmentClass}">
-                    <h3 class="appointment-title">${item.title}</h3>
-                    <p class="appointment-location">${item.location}</p>
-                    <span class="appointment-date"> Deadline: ${transformedDate}</span>
-                  </a>
+    var newAppointment = $("<li>",
+    ).html(`
+                <div class="row mb-3">
+                  <div class="col">
+                    <a href="#" class="${appointmentClass}" onclick="loaddata('GET', 'getAppointmentById', ${item.id})">
+                      <h3 class="appointment-title">${item.title}</h3>
+                      <p class="appointment-location">${item.location}</p>
+                      <span class="appointment-date"> Deadline: ${transformedDate}</span>
+                    </a>
+                  </div>
+                  <div id="delete" class="col">
+                    <button type="button" class="delete-button" onclick="loaddata('POST', 'deleteAppointment', ${item.id})">Delete</button>
+                  </div>
+                </div>   
            `);
     $("#list").append(newAppointment);
   });
 }
+
+
+
 
 function loadAppointmentDetails(appointment) {
 
@@ -124,6 +141,8 @@ function loadPossibleDT(possibleDT) {
   if (possibleDT.length != 0) {
       appointment_id = possibleDT[0].fk_appointment_id;
   }
+
+
   $.each(possibleDT, function (i, item) {
     const transformedDate = formatDate(item.date);
 
@@ -143,12 +162,15 @@ function loadPossibleDT(possibleDT) {
     $("#possibleDT").append(listItem);
   });
 
+
   if ($("#past-appointment").is(":hidden")) {
     $(".clickable").on("click", function () {
       // Toggle the "bg-success" and "text-white" Bootstrap classes on the clicked list item
       $(this).toggleClass("bg-success text-white");
     });
   }
+
+
   $("#add-to-cal").on("click", function () {
     const inputobj = {};
     inputobj.name = $("#name").val();
@@ -182,6 +204,7 @@ $("#submit_appointment").on("click", function () {
   loaddata("POST", "addAppointment", inputobj);
 
 });
+
 
 //Example: 2020-12-31 --> December 31, 2020
 function formatDate(dateString) {

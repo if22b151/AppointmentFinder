@@ -143,4 +143,42 @@ class DataHandler
         $stmt->close();
     }
 
+    public function deleteAppointment($id)
+    {
+        $db_obj = self::dbAccess();
+        $sql = "DELETE FROM chosen_dt 
+                WHERE fk_pdt_id IN (
+                    SELECT pdt_id 
+                    FROM possible_date_time 
+                    WHERE fk_appointment_id = ?)";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+
+        $db_obj = self::dbAccess();
+        $sql = "DELETE FROM possible_date_time WHERE fk_appointment_id = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+
+        $db_obj = self::dbAccess();
+        $sql = "DELETE FROM person WHERE fk_appointment_id = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+
+        $db_obj = self::dbAccess();
+        $sql = "DELETE FROM appointment WHERE appointment_id = ?";
+        $stmt = $db_obj->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+
+        return "success";
+
+    }
 }
+

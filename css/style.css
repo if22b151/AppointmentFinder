@@ -1,3 +1,9 @@
+#appointments {
+    margin: auto;
+    max-width: 700px;
+}
+
+
 .appointments-list {
     list-style: none;
     padding: 0;
@@ -17,7 +23,7 @@
 }
 
 .appointment-link:hover {
-    background-color: #e5e5e5;
+    background-color: #cee6f5;
 }
 
 .appointment-title {
@@ -25,21 +31,21 @@
     margin-bottom: 5px;
     font-size: 18px;
     font-weight: bold;
-    margin-left: 30px;
+    margin-left: 0px;
 }
 
 .appointment-location {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 16px;
-    margin-left: 30px;
+    margin-left: 0px;
 }
 
 .appointment-date {
     font-style: italic;
     font-size: 14px;
     color: #888;
-    margin-left: 30px;
+    margin-left: 0px;
 }
 
 .past-appointment {
@@ -48,8 +54,8 @@
 }
 
 .past-appointment:hover {
-    background-color: #f0f0f0;
-    color: #999;
+    background-color: #a9a8a8;
+    color: #333333;
 }
 
 .pastDT {
@@ -183,4 +189,24 @@ header nav a:first-child {
 
 #add-date {
     margin-top: 32px;
+}
+
+.delete-button {
+    background-color: #da1e1e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 30px;
+}
+
+.delete-button:hover {
+    background-color: #830505;
+}
+
+#delete{
+    max-width: 100px;
 }

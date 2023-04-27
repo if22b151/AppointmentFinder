@@ -13,6 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     isset($_GET["param"]) ? $param = $_GET["param"] : false;
 }
 
+
 $logic = new SimpleLogic();
 $result = $logic->handleRequest($method, $param);
 if ($result == null) {
