@@ -7,7 +7,6 @@ $method = "";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     isset($_POST["method"]) ? $method = $_POST["method"] : false;
     isset($_POST["param"]) ? $param = $_POST["param"] : false;
-    //$param = json_decode($param);
 } else {
     isset($_GET["method"]) ? $method = $_GET["method"] : false;
     isset($_GET["param"]) ? $param = $_GET["param"] : false;
