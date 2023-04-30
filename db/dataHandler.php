@@ -50,7 +50,6 @@ class DataHandler
 
         if ($inputs["possibleDT"] != null && count($inputs["possibleDT"]) > 0) {
 
-            $db_obj = self::dbAccess();
             for ($i = 0; $i < count($inputs["possibleDT"]); $i++) {
                 $sql = "INSERT INTO chosen_dt(`fk_pers_id`, `fk_pdt_id`) VALUES (?,?)";
                 $stmt = $db_obj->prepare($sql);
