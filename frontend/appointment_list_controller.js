@@ -116,6 +116,7 @@ function loadAppointments(appointments) {
     }
 
     // Create the new <li> element
+    //test
     var newAppointment = $("<li>",
     ).html(`
                 <div class="row mb-3">
