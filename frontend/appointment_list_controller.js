@@ -1,6 +1,11 @@
+// Authors: Christoph Leopold, Paul Felgitsch
+
+//hides all components and loads the appointments
 hideComponents("appointments");
 loaddata("GET", "getAppointments");
 
+
+//loads the appointments by clicking on "appointments" in the header
 $("#overview").on("click", function () {
   hideComponents("appointments");
   $("#list").empty();
@@ -11,10 +16,17 @@ $("#overview").on("click", function () {
   loaddata("GET", "getAppointments", "all");
 });
 
+
+
+//loads the create appointment form by clicking on "create appointment" in the header
 $("#create").on("click", function () {
     hideComponents("create_appointment");
 });
 
+
+
+
+//adds a date and time to the list of possible dates and times
 $("#add-date").on("click", function () {
   const date = $("#newPossibleDate").val();
   const starting_time = $("#newStarting_Time").val();
@@ -31,6 +43,9 @@ $("#add-date").on("click", function () {
   }
 });
 
+
+
+//hides all components except the one passed as parameter
 function hideComponents(except) {
   (except === "appointments") ? $("#appointments").show() : $("#appointments").hide();
   (except === "appointment_details") ? $("#appointment_details").show() : $("#appointment_details").hide();
@@ -39,7 +54,8 @@ function hideComponents(except) {
   $("#create_success").hide();
 }
 
-
+//ajax call to the service handler, with typemethod = GET or POST,
+// method = the method to be called in the service handler, param = the parameter to be passed to the method
 function loaddata(typemethod, method, param) {
   console.log("loaddata");
   console.log(method);
@@ -87,6 +103,8 @@ function loaddata(typemethod, method, param) {
   });
 }
 
+
+//creates new list elements for the appointments with the data from the database and appends them to the list
 function loadAppointments(appointments) {
   $.each(appointments, function (i, item) {
     console.log(item.deadline);
@@ -119,7 +137,7 @@ function loadAppointments(appointments) {
 
 
 
-
+//shows title, location and deadline of the appointment and calls the method to load the possible dates and times
 function loadAppointmentDetails(appointment) {
 
   hideComponents("appointment_details");
@@ -136,13 +154,16 @@ function loadAppointmentDetails(appointment) {
   loaddata("GET", "getPossibleDT", appointment.id);
 }
 
+
+
+//creates new list elements for the possible dates and times with the data from the database and appends them to the list
 function loadPossibleDT(possibleDT) {
   let appointment_id = null;
   if (possibleDT.length != 0) {
       appointment_id = possibleDT[0].fk_appointment_id;
   }
 
-
+  // Create the new <li> element
   $.each(possibleDT, function (i, item) {
     const transformedDate = formatDate(item.date);
 
@@ -156,13 +177,17 @@ function loadPossibleDT(possibleDT) {
     listItem.attr("pdt-id", item.pdt_id);
 
 
+    //if the appointment is in the past, add the class pastDT to the list item
     if ($("#past-appointment").is(":visible")) {
       listItem.addClass("pastDT");
     }
+
+    // Append the new <li> element to the list
     $("#possibleDT").append(listItem);
   });
 
-
+  //if the appointment is not in the past, make the list items clickable
+  // and toggle the "bg-success" and "text-white" Bootstrap classes on the clicked list item
   if ($("#past-appointment").is(":hidden")) {
     $(".clickable").on("click", function () {
       // Toggle the "bg-success" and "text-white" Bootstrap classes on the clicked list item
@@ -170,7 +195,7 @@ function loadPossibleDT(possibleDT) {
     });
   }
 
-
+  //add onclick event to the button to add the appointment to the calendar
   $("#add-to-cal").on("click", function () {
     const inputobj = {};
     inputobj.name = $("#name").val();
@@ -180,11 +205,15 @@ function loadPossibleDT(possibleDT) {
     $(".bg-success").each(function () {
         inputobj.possibleDT.push($(this).attr("pdt-id"));
     });
+    console.log("add to calendar clicked");
     loaddata("POST", "addToCalendar", inputobj);
   });
 
 }
 
+//DELETE FROM `chosen_dt` Where fk_pers_id <> 1;
+
+//add onclick event to the button to create a new appointment and add it to the database
 $("#submit_appointment").on("click", function () {
   const inputobj = {};
   inputobj.title = $("#newTitle").val();

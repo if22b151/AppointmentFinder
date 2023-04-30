@@ -79,7 +79,7 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`pers_id`, `name`, `fk_appointment_id`, `comment`) VALUES
-(1, 'Paul', 1, 'Ich krieg alle bitches');
+(1, 'Paul', 1, 'yolo');
 
 -- --------------------------------------------------------
 
