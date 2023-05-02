@@ -196,6 +196,9 @@ function loadPossibleDT(possibleDT) {
     });
   }
 
+
+  $("#add-to-cal").off("click");
+
   //add onclick event to the button to add the appointment to the calendar
   $("#add-to-cal").on("click", function () {
     const inputobj = {};
@@ -212,7 +215,7 @@ function loadPossibleDT(possibleDT) {
 
 }
 
-//DELETE FROM `chosen_dt` Where fk_pers_id <> 1;
+
 
 //add onclick event to the button to create a new appointment and add it to the database
 $("#submit_appointment").on("click", function () {
